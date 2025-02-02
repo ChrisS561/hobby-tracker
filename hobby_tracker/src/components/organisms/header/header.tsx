@@ -7,12 +7,14 @@ const stats = [
 	{ name: 'Waitlisted', value: '2' },
 ];
 
+// TODO Fix the hobby tracker on the header to be accurate with the amount of hobbies.
 export default function Header() {
 	return (
 		<div className="relative isolate overflow-hidden bg-gray-900 py-24 sm:py-32">
 			<img
 				alt="Cover Picture"
 				src={backgroundPic}
+                loading='lazy'
 				className="absolute inset-0 -z-10 size-full object-cover object-right md:object-center"
 			/>
 

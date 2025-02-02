@@ -6,36 +6,36 @@ import { useEffect, useState } from 'react';
 import type { NewHobbyFormState } from '../components/organisms/form/form';
 import HobbyForm from '../components/organisms/form/form';
 
-
 function App() {
 	const [isactive, setIsActive] = useState<boolean>(false);
-  const [hobbyData, setHobbyData] = useState<NewHobbyFormState[]>([]);
+	const [hobbyData, setHobbyData] = useState<NewHobbyFormState[]>([]);
 
-  const handlesHobbyData = (data: NewHobbyFormState) => {
+	const handlesHobbyData = (data: NewHobbyFormState) => {
 		setHobbyData((prevData) => [...prevData, data]);
 	};
-
-
-  useEffect(() => {
-		if (hobbyData) {
-			console.log('Updated hobbyData in parent:', hobbyData);
-		}
-	}, [hobbyData]);
 
 	const onClick = () => {
 		setIsActive(!isactive);
 		console.log(isactive);
 	};
-
+	// TODO Add a filter for status ( sort by alphanumeric order then by active, inactive, wishlist) and search capability
+  // TODO Display "More Information underneath the cards in a grid"
 	return (
 		<main>
 			<Navbar />
 			<Header />
-			<Button onClick={onClick}>Add new hobby</Button>
+			<div className="flex justify-center mt-4">
+				<Button
+					className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600"
+					onClick={onClick}
+				>
+					Add new hobby
+				</Button>
+			</div>
 			{isactive ? (
 				<HobbyForm onButtonClick={onClick} sendHobbyData={handlesHobbyData} />
 			) : null}
-			<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+			<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 ml-4 ">
 				{hobbyData.map((hobby, index) => (
 					<Cards
 						key={index}

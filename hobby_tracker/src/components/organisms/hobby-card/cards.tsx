@@ -22,12 +22,14 @@ export function Cards({
 	rating,
 	startDate,
 }: CardInformation) {
+    // TODO Add functionality for the Buttons
 	return (
 		<Card className="mt-6 w-96">
 			<CardHeader color="blue-gray" className="relative h-56">
 				<img
 					src={`${image}`}
 					alt={`${title} card`}
+					loading="lazy"
 					className="object-cover w-full h-full"
 				/>
 			</CardHeader>
@@ -41,8 +43,18 @@ export function Cards({
 					Start Date: {new Date(startDate).toDateString()}
 				</Typography>
 			</CardBody>
-			<CardFooter className="pt-0">
-				<Button>More Information</Button>
+			<CardFooter className="pt-2">
+				<div className="flex space-x-2">
+					<Button className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
+						More Information
+					</Button>
+					<Button className="px-4 py-2 bg-yellow-500 text-white rounded hover:bg-yellow-600">
+						Edit
+					</Button>
+					<Button className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600">
+						Delete
+					</Button>
+				</div>
 			</CardFooter>
 		</Card>
 	);

@@ -17,7 +17,8 @@ const navigation = [
 function classNames(...classes: string[]) {
 	return classes.filter(Boolean).join(' ');
 }
-
+// TODO Add scrolling to Hobby section. 
+// TODO Implement authentication and use firebase database to save users hobbies within their account.
 export default function Navbar() {
 	return (
 		<Disclosure as="nav" className="bg-gray-800">

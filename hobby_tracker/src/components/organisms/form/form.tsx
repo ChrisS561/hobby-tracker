@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 interface NewHobbyFormState {
 	image: string;
 	title: string;
-	status: 'active' | 'inactive' | 'wishlisted';
+	status: 'Active' | 'Inactive' | 'Wishlisted';
 	rating: string;
 	startDate: string;
 }
@@ -17,7 +17,7 @@ const HobbyForm: React.FC<HobbyFormProps> = ({ onButtonClick, sendHobbyData }) =
 	const [formData, setFormData] = useState<NewHobbyFormState>({
 		image: '',
 		title: '',
-		status: 'inactive',
+		status: 'Inactive',
 		rating: '',
 		startDate: '',
 	});
@@ -30,14 +30,13 @@ const HobbyForm: React.FC<HobbyFormProps> = ({ onButtonClick, sendHobbyData }) =
 	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		try {
-			console.log(formData);
-			sendHobbyData(formData)
-			onButtonClick()
+			sendHobbyData(formData);
+			onButtonClick();
 		} catch (error) {
 			console.error(error);
 		}
 	};
-
+	// TODO Add a section for "Hobby Information", Items Needed, Price Breakdown, Priority, and Notes.
 	return (
 		<div className="min-h-screen bg-gray-800 flex items-center justify-center">
 			{/* Modal Backdrop */}
@@ -85,42 +84,42 @@ const HobbyForm: React.FC<HobbyFormProps> = ({ onButtonClick, sendHobbyData }) =
 								<div className="flex items-center">
 									<input
 										type="radio"
-										id="active"
+										id="Active"
 										name="status"
-										value="active"
+										value="Active"
 										onChange={handleChange}
-										checked={formData.status === 'active'}
+										checked={formData.status === 'Active'}
 										className="mr-2"
 									/>
-									<label htmlFor="active" className="text-sm text-gray-300">
+									<label htmlFor="Active" className="text-sm text-gray-300">
 										Active
 									</label>
 								</div>
 								<div className="flex items-center">
 									<input
 										type="radio"
-										id="inactive"
+										id="Inactive"
 										name="status"
-										value="inactive"
+										value="Inactive"
 										onChange={handleChange}
-										checked={formData.status === 'inactive'}
+										checked={formData.status === 'Inactive'}
 										className="mr-2"
 									/>
-									<label htmlFor="inactive" className="text-sm text-gray-300">
+									<label htmlFor="Inactive" className="text-sm text-gray-300">
 										Inactive
 									</label>
 								</div>
 								<div className="flex items-center">
 									<input
 										type="radio"
-										id="wishlisted"
+										id="Wishlisted"
 										name="status"
-										value="wishlisted"
+										value="Wishlisted"
 										onChange={handleChange}
-										checked={formData.status === 'wishlisted'}
+										checked={formData.status === 'Wishlisted'}
 										className="mr-2"
 									/>
-									<label htmlFor="wishlisted" className="text-sm text-gray-300">
+									<label htmlFor="Wishlisted" className="text-sm text-gray-300">
 										Wishlisted
 									</label>
 								</div>
@@ -140,7 +139,7 @@ const HobbyForm: React.FC<HobbyFormProps> = ({ onButtonClick, sendHobbyData }) =
 								max="5"
 								onChange={handleChange}
 								placeholder="Rate between 1 and 5"
-								required
+								required={formData.status === 'Active' ? true : false}
 							/>
 						</div>
 
@@ -154,7 +153,7 @@ const HobbyForm: React.FC<HobbyFormProps> = ({ onButtonClick, sendHobbyData }) =
 								className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400 bg-gray-800 text-white"
 								value={formData.startDate}
 								onChange={handleChange}
-								required
+								required={formData.status === 'Active' ? true : false}
 							/>
 						</div>
 
