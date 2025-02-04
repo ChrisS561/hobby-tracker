@@ -1,25 +1,22 @@
 import React, { useEffect, useState } from 'react';
+import PopupModel from '../modelpopup';
+import { NewHobbyFormState } from 'components/Interfaces/formInterface';
+import { HobbyFormProps } from 'components/Interfaces/formInterface';
+import { ModelPopupState } from 'components/Interfaces/modelInterface';
 
-interface NewHobbyFormState {
-	image: string;
-	title: string;
-	status: 'Active' | 'Inactive' | 'Wishlisted';
-	rating: string;
-	startDate: string;
-}
-
-interface HobbyFormProps {
-	onButtonClick: () => void;
-	sendHobbyData: (data: NewHobbyFormState) => void
-}
-
-const HobbyForm: React.FC<HobbyFormProps> = ({ onButtonClick, sendHobbyData }) => {
+const HobbyForm: React.FC<HobbyFormProps> = ({
+	onButtonClick,
+	sendHobbyData,
+}) => {
+	const [modelOnButtonClick, setModelOnButtonClick] = useState<boolean>(false);
+	const [dataModelPopup, setDataModelPopup] = useState<ModelPopupState>();
 	const [formData, setFormData] = useState<NewHobbyFormState>({
 		image: '',
 		title: '',
 		status: 'Inactive',
 		rating: '',
 		startDate: '',
+		...dataModelPopup,
 	});
 
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -30,13 +27,23 @@ const HobbyForm: React.FC<HobbyFormProps> = ({ onButtonClick, sendHobbyData }) =
 	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		try {
+			console.log(dataModelPopup);
 			sendHobbyData(formData);
 			onButtonClick();
 		} catch (error) {
 			console.error(error);
 		}
 	};
-	// TODO Add a section for "Hobby Information", Items Needed, Price Breakdown, Priority, and Notes.
+
+	const datafromModelPopup = (data: ModelPopupState) => {
+		setDataModelPopup(data);
+	};
+
+	const handleModelButtonClick = () => {
+		setModelOnButtonClick(!modelOnButtonClick);
+	};
+
+	// TODO Add logic add modelpopup data to the original form and adding a way for users to see how many items have been added and display them on orignal form. 
 	return (
 		<div className="min-h-screen bg-gray-800 flex items-center justify-center">
 			{/* Modal Backdrop */}
@@ -157,17 +164,32 @@ const HobbyForm: React.FC<HobbyFormProps> = ({ onButtonClick, sendHobbyData }) =
 							/>
 						</div>
 
+						<div className="mb-6">
+							<button
+								type="button"
+								onClick={handleModelButtonClick}
+								className="w-full bg-gradient-to-r from-blue-400 to-blue-500 text-white py-3 rounded-2xl shadow-md hover:from-blue-500 hover:to-blue-600 focus:ring-2 focus:ring-blue-300 transition duration-300"
+							>
+								+ Add Item Needed
+							</button>
+						</div>
+						{modelOnButtonClick ? (
+							<PopupModel
+								handleModelButtonClick={handleModelButtonClick}
+								handleModelDataChange={datafromModelPopup}
+							/>
+						) : null}
 						<div className="flex gap-4">
 							<button
 								type="submit"
-								className="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 transition duration-300"
+								className="w-full bg-green-500 text-white py-2 rounded-md hover:bg-green-600 transition duration-300"
 							>
 								Submit
 							</button>
 							<button
 								type="button"
 								onClick={onButtonClick}
-								className="w-full bg-gray-700 text-white py-2 rounded-md hover:bg-gray-600 transition duration-300"
+								className="w-full bg-red-700 text-white py-2 rounded-md hover:bg-red-600 transition duration-300"
 							>
 								Close
 							</button>

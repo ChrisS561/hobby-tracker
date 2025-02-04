@@ -3,8 +3,8 @@ import Header from 'components/organisms/header';
 import Cards from 'components/organisms/hobby-card';
 import Navbar from 'components/organisms/navbar';
 import { useEffect, useState } from 'react';
-import type { NewHobbyFormState } from '../components/organisms/form/form';
 import HobbyForm from '../components/organisms/form/form';
+import { NewHobbyFormState } from 'components/Interfaces/formInterface';
 
 function App() {
 	const [isactive, setIsActive] = useState<boolean>(false);
@@ -19,7 +19,7 @@ function App() {
 		console.log(isactive);
 	};
 	// TODO Add a filter for status ( sort by alphanumeric order then by active, inactive, wishlist) and search capability
-  // TODO Display "More Information underneath the cards in a grid"
+	// TODO Display "More Information underneath the cards in a grid"
 	return (
 		<main>
 			<Navbar />
@@ -35,7 +35,7 @@ function App() {
 			{isactive ? (
 				<HobbyForm onButtonClick={onClick} sendHobbyData={handlesHobbyData} />
 			) : null}
-			<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 ml-4 ">
+			<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 ml-2 ">
 				{hobbyData.map((hobby, index) => (
 					<Cards
 						key={index}
