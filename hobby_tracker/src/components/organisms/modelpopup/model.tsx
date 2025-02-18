@@ -27,6 +27,13 @@ const PopupModel: React.FC<ModelPopupProps> = ({
 		e.preventDefault();
 		handleModelDataChange(modelPopup);
 		console.log('Form submitted:', modelPopup);
+		setModelPopup({
+			itemName: '',
+			quantity: 1,
+			priority: 'Medium',
+			price: 0,
+			acquiredState: false,
+		});
 	};
 
 	return (

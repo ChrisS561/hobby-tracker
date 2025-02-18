@@ -27,9 +27,9 @@ const HobbyForm: React.FC<HobbyFormProps> = ({
 	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		try {
-			console.log(dataModelPopup);
 			sendHobbyData(formData);
 			onButtonClick();
+			console.log(formData)
 		} catch (error) {
 			console.error(error);
 		}
@@ -179,6 +179,9 @@ const HobbyForm: React.FC<HobbyFormProps> = ({
 								handleModelDataChange={datafromModelPopup}
 							/>
 						) : null}
+						{/* {dataModelPopup?.map((item, index) => (
+							<div key={index}>{item}</div>
+						))} */}
 						<div className="flex gap-4">
 							<button
 								type="submit"
